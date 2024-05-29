@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAFfle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='WAFfle.png') }}">
+</head>
+<body>
+    <div class="page">
+
+        <div class="controller">
+            <h1>The BEST Web Firewall in the World.</h1>
+            <p class="trust">(trust bro, trust)</p>
+            <p>Here is your control panel:</p>
+            <form id="block-ip-form">
+                <label for="bip">Enter IP address to block:</label>
+                <input type="text" id="bip" name="ip" placeholder="Enter IP address...">
+                <input type="submit" value="Block IP" onclick="reload()">
+            </form>
+            <form id="unblock-ip-form">
+                <label for="uip">Enter IP address to unblock:</label>
+                <input type="text" id="uip" name="ip" placeholder="Enter IP address...">
+                <input type="submit" value="Unblock IP" onclick="reload()">
+            </form>
+        </div>
+        <div class="logs">
+            <h2>Incoming Requests:</h2>
+            <ul class="requests">
+                {% for req_info in inc_requests %}
+                <li class="{% if req_info.blocked %}denied{% endif %}">
+                    <strong>Request:</strong> {{ req_info.method }} {{ req_info.path }} {{ req_info.remote_addr }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="blocked">
+            <h2>Blocked IPs List:</h2>
+            <ul class="blocked_ips">
+                {% for ip in blocked_ips %}
+                <li>{{ ip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#block-ip-form').submit(function(event) {
+                event.preventDefault(); 
+                var formData = $(this).serialize(); 
+                $.ajax({
+                    type: 'POST',
+                    url: '/block-ip',
+                    data: formData,
+                    success: function(response) {
+                        console.log('IP address blocked successfully');
+                        location.reload(); 
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error blocking IP address:', error);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#unblock-ip-form').submit(function(event) {
+                event.preventDefault(); 
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/unblock-ip',
+                    data: formData,
+                    success: function(response) {
+                        console.log('IP address unblocked successfully');
+                        location.reload(); 
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error unblocking IP address:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

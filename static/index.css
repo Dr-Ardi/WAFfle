@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.page{
+    width: 95%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 30%;
+    grid-template-rows: auto auto;
+    padding: 20px;
+    margin: 2.5% auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+.controller {
+    grid-column: 1;
+    border-radius: 5px;
+    padding: 0 15%;
+    padding-bottom: 50px;
+}
+.trust{
+    text-align: center;
+    font-size: 10px;
+}
+h1,h2 {
+    text-align: center;
+    color: #333;
+}
+p {
+    color: #666;
+}
+form {
+    margin-top: 20px;
+}
+label {
+    font-weight: bold;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.logs{
+    grid-column: 1;
+    border-radius: 5px;
+    padding: 0 15%;
+    border-top: solid 1px #666;
+}
+.requests{
+    height: 350px;
+    overflow-y: scroll;
+}
+.denied{
+    color: red;
+}
+
+.blocked{
+    grid-column: 2;
+    grid-row: 1 /span 2;
+    border-left: solid 1px #666;
+}
+.blocked_ips{
+    text-align: center;
+    overflow-y: scroll;
+    height: 90%;
+}
+.blocked_ips > li, .requests > li{
+    list-style: none;
+    margin: 10px 0px;
+}
